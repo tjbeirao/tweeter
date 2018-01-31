@@ -15,6 +15,27 @@
     float: left;
 }
 
+#nav-bar button {
+    float: right;
+    margin: 6px;
+    padding: 13px;
+    border-color: white;
+    border-style: double;
+    font-family: Roboto Condensed;
+    font-size: 200%;
+}
+
+#nav-bar button:hover {
+    float: right;
+    margin: 6px;
+    padding: 13px;
+    border-color: white;
+    border-style: dashed;
+    font-family: Roboto Condensed;
+    font-size: 200%;
+    background-color: orange;
+}
+
 #nav-bar span {
     float: left;
     padding-left: 10px;

@@ -7,7 +7,9 @@
 {/* <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> */}
 
 $(document).ready(function() {
+  $("#tweets-container").hide()
 
+  
 function createTweetElement(data) {
   let newUser = `${escape(data.user.name)}`;
   let newAvatar = `${escape(data.user.avatars.small)}`;
@@ -73,32 +75,29 @@ function renderTweets(data) {
         type: "POST",
         url: '/tweets',
         data: newTweet,
+        success: loadTweets
       });
-      loadTweets();
+    }
+    $("#tweets-container").hide()
+  });
+
+  loadTweets();
+
+
+  // AUTO REFRESHER FOR NEW TWEETS WHEN MULTIPLE USERS
+// $(window).load(function () {
+//   setInterval(loadTweets, 500);
+// })
+
+
+  $("#nav-bar button").click(function () {
+    $("#tweets-container").toggle("show"), function () {
     }
   });
 
-
-
-
-
-
-
-
-
-
-
-
-$(window).load(function () {
-  setInterval(loadTweets, 500);
-})
-
-
-
-
-
-
-
+  $("#nav-bar button").click(function () {
+    $("#tweets-container textarea").focus();
+  });
 
 
 
