@@ -4,68 +4,15 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
+{/* <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> */}
 
 $(document).ready(function() {
 
-const data = [
-    {
-    "user": {
-        "name": "Newton",
-            "avatars": {
-              "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-              "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-              "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-        },
-            "handle": "@SirIsaac"
-          },
-          "content": {
-            "text": "If I have seen further it is by standing on the shoulders of giants"
-          },
-          "created_at": 1461116232227
-        },
-        {
-          "user": {
-            "name": "Descartes",
-            "avatars": {
-              "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-              "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-              "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-            },
-            "handle": "@rd" },
-          "content": {
-            "text": "Je pense , donc je suis"
-          },
-          "created_at": 1461113959088
-        },
-        {
-          "user": {
-            "name": "Johann von Goethe",
-            "avatars": {
-              "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-              "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-              "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-            },
-            "handle": "@johann49"
-          },
-          "content": {
-            "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-          },
-          "created_at": 1461113796368
-        }
-      ];
-  
-
-
 function createTweetElement(data) {
-    let newUser = data.user.name;
-    let newAvatar = data.user.avatars.small;
-    let newHandle = data.user.handle;
-    let newText = data.content.text;
-
-    console.log(newUser);
-    console.log(newAvatar);
-    console.log(newHandle);
-    console.log(newText);
+  let newUser = `${escape(data.user.name)}`;
+  let newAvatar = `${escape(data.user.avatars.small)}`;
+  let newHandle = `${escape(data.user.handle)}`;
+  let newText = `${escape(data.content.text)}`;
 
     return (`
     <article>
@@ -85,24 +32,81 @@ function createTweetElement(data) {
     `)
 };
 
+  function escape(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
 function renderTweets(data) {
-    for (let i in data) {
-        let showTweets = createTweetElement(data[i]);
-        $('.show-tweets').append(showTweets);
+  $('.show-tweets').html("");
+  data.sort(function (a, b) {
+    if (a.created_at > b.created_at) {
+      return - 1;
+    } else {
+      return 1;
     }
+  });
+  data.forEach((data) => {
+    var $showTweets = createTweetElement(data);
+    $('.show-tweets').append($showTweets);
+  });
+};
+
+  function loadTweets() {
+    $.ajax({
+      url: '/tweets',
+      method: 'GET',
+      success: renderTweets
+    });
 }
 
-renderTweets(data);
+  $('form').on('submit', function (event) {
+    event.preventDefault();
+    let newTweet = $(this).serialize();
+    if (newTweet.length <= 5 || newTweet === null) {
+      alert("Empty Field or Invalid Text");
+    } else if (newTweet.length > 145) {
+      alert("Tweet with more than 140 characteres");
+    } else {
+      $.ajax({
+        type: "POST",
+        url: '/tweets',
+        data: newTweet,
+      });
+      loadTweets();
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+$(window).load(function () {
+  setInterval(loadTweets, 500);
 })
-  
 
 
 
-// function createTweetElement(tweetData) {
-//      $('<article>')
-//         .append(tweetData.user.name).addClass(".show-tweets h2")
-//         .append(tweetData.user.avatars.small).addClass(".show-tweets .avatar")
-//         .append(tweetData.user.handle).addClass(".show-tweets div")
-//         .append(tweetData.content.text).addClass(".show-tweets .text")
-//         .appendTo(".show-tweets");
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+})
