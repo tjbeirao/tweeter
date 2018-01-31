@@ -5,7 +5,7 @@ main .show-tweets {
     background: white;
     margin-left: 15px;
     margin-right: 15px;
-    border: 1px solid grey;
+    border: 1.5px solid grey;
 }
 
 .show-tweets header {
@@ -14,7 +14,7 @@ main .show-tweets {
     justify-content: space-between;
     align-items: flex-start;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 3px;
     color: grey
 }
 
@@ -52,9 +52,33 @@ main .show-tweets {
 .show-tweets footer {
     padding-top: 10px;
     padding-left: 10px;
-    border-radius: 5px;
+    border-radius: 2px;
     background: white;
     height: 40px;
     text-align: inherit;
-    border-top: 1px solid grey;
+    border-radius: 5px;
+    border-top: 1.5px solid grey;
 }
+
+.show-tweets footer i {
+    padding-right: 5px;
+    float: right;
+    opacity: 0;
+}
+
+.show-tweets:hover footer i {
+    padding-right: 5px;
+    float: right;
+    opacity: 1;
+    color: black;
+}
+
+.show-tweets:hover {
+    border-color: darkgray;
+    border-width: 2px;
+ }
+
+ .show-tweets:hover header {
+    background-color: darkgray;
+    color: white;
+ }
