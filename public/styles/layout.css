@@ -15,7 +15,7 @@ html {
 
 main {
   width: 450px;
-  height: 1000px;
+  height: max-content;
   background-color: white;
   margin-top: 16px;
   padding-top: 80px;

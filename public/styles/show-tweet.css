@@ -6,6 +6,17 @@ main .show-tweets {
     margin-right: 15px;
 
 }
+
+.show-tweets header div {
+    float: right;
+    position: relative;
+    top: -38px;
+    right: 5px;
+    width: -150px;
+    height: 41px;
+    text-align: right;
+}
+
 .show-tweets article {
     margin-top: 20px;
     border: 1.0px solid grey;
@@ -14,18 +25,16 @@ main .show-tweets {
 
 .show-tweets header {
     background: #eeeeee;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
     padding: 5px;
     border-radius: 3px;
-    color: grey
+    color: grey;
 }
 
 .show-tweets h2 {
-    padding-right: 7em;
-    margin-top: -5px;
-    font: 25px;
+    size: 15px;
+    padding-right: 0em;
+    padding-left: 2.2em;
+    margin-top: 0px;
 }
 
 .show-tweets article div {
@@ -37,9 +46,6 @@ main .show-tweets {
 
 .show-tweets .avatar {
     border-radius: 10px;
-    padding-left: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
     height: 50px;
     width: 50px;
     float: left;
