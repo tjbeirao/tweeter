@@ -12,7 +12,7 @@ function createTweetElement(data) {
   let newHandle = `${escape(data.user.handle)}`;
   let newText = `${escape(data.content.text)}`;
   var postTime = `${escape(data.created_at)}`;
-  let timeNow = (Date.now() + 1);
+  let timeNow = Date.now();
   var realTime = timeNow - postTime;
 
   return (`
@@ -54,8 +54,10 @@ function showTime(milliseconds) {
     return (minute + " minutes ago");
   } else if ((day < 1 && hour < 1 && minute === 1)) {
     return (minute + " minute ago");
-  } else {
+  } else if ((day < 1 && hour < 1 && minute < 1 && seconds > 10)){
     return (seconds + " seconds ago");
+  } else {
+    return ("Just now");
   }
 }
 
@@ -89,7 +91,7 @@ $(document).ready(function () {
     if (newTweet.length <= 5 || newTweet === null) {
       alert("Empty Field or Invalid Text");
     } else if (newTweet.length > 145) {
-      alert("Tweet with more than 140 characteres");
+      alert("Sorry, please type less than 140 characteres");
     } else {
       $.ajax({
         type: "POST",
@@ -98,24 +100,28 @@ $(document).ready(function () {
         success: loadTweets
       });
     }
+    // $('#form span').each(function () {
+    //   this.reset();
+    // })+
+    $(".counter").text("140");
+    $("main span").removeClass("invalid");
+    $("#tweets-container textarea").val("")
     $("#tweets-container").hide()
   });
-
-
+  
   $("#tweets-container").hide()
   loadTweets();
-    
+  
   $("#nav-bar button").click(function () {
     $("#tweets-container").toggle("show"), function () {
     }
   });
-
+  
   $("#nav-bar button").click(function () {
     $("#tweets-container textarea").focus();
   });
 
 })
-
 
 // AUTO REFRESHER FOR NEW TWEETS WHEN MULTIPLE USERS
 // $(window).load(function () {
