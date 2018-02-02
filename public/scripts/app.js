@@ -100,9 +100,6 @@ $(document).ready(function () {
         success: loadTweets
       });
     }
-    // $('#form span').each(function () {
-    //   this.reset();
-    // })+
     $(".counter").text("140");
     $("main span").removeClass("invalid");
     $("#tweets-container textarea").val("")
